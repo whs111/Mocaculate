@@ -1,0 +1,57 @@
+for n0=3:100
+%count for the matrix A
+	N=100;
+	%n0=3;%this can be any value;
+	A=zeros(N);
+	for i=1:N
+		for j=i-1:(i+n0-2)
+			j0=mod(j,N);
+			if j0==0
+				j0=N;
+			end
+			A(i,j0)=1/n0;
+		end
+	end		
+	A([1,N],:)=A([N,1],:);
+	%=====================
+	D = diag(diag(A));
+	R = A - D;
+
+	% iteration matrix and offset
+	T = - inv(D) * R;
+	rho = abs(eig(T));
+	b = sort(rho(~isnan(rho)));
+	%spartral_gap(n0-2)=b(1);
+	spartral_gap(n0-2)=(b(end)-b(end-1))/n0;
+%===========================================
+K0=0;
+A0=1;
+B0=1;
+convergence_rate(n0-2) = K0+A0/(1-spartral_gap(n0-2))+B0/(1-sqrt(spartral_gap(n0-2)))^2;
+end
+plot(0.02:0.01:0.99,log(convergence_rate)/10);
+hold on;
+plot(0.02:0.01:0.99,log(convergence_rate(1))/10);
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
