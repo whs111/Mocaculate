@@ -1,0 +1,42 @@
+import numpy
+k0=101
+s='C:\\Users\\Administrator\\Desktop\\data1.txt'
+#s[1]='C:\\Users\\hansen\\Desktop\\testSet1.txt'
+#s[2]='C:\\Users\\hansen\\Desktop\\testSet2.txt'
+#s[3]='C:\\Users\\hansen\\Desktop\\testSet3.txt'
+#s[4]='C:\\Users\\hansen\\Desktop\\testSet4.txt'
+#first circle
+t=[]
+x=numpy.random.uniform(-2.235,2.235,k0)
+y=numpy.random.uniform(0.265,4.735,k0)
+
+for k in range(1,k0):
+	if (x[k]*x[k]+(y[k]-2.5)*(y[k]-2.5))<=5:
+		t.append([x[k],y[k],1])
+#second circle
+x=numpy.random.uniform(-1.95,1.95,k0)
+y=numpy.random.uniform(8.05,11.95,k0)
+
+for k in range(1,k0):
+	if (x[k]*x[k]+(y[k]-10)*(y[k]-10))<=5:
+		t.append([x[k],y[k],0])
+
+#noise circle
+w=20;
+x=numpy.random.uniform(-4,4,w)
+y=numpy.random.uniform(5,10,w)
+
+for k in range(1,w):
+	t.append([x[k],y[k],0])
+x=numpy.random.uniform(-4,4,w)
+y=numpy.random.uniform(-1,7,w)
+
+for k in range(1,w):
+	t.append([x[k],y[k],1])
+
+numpy.random.shuffle(t)
+l=len(t)
+f=open(s,"w")
+for j in range(0,l):
+	f.write("%.6f"%t[j][0]+"\t"+"%.6f"%t[j][1]+"\t"+str(t[j][2])+"\n")
+f.close()
